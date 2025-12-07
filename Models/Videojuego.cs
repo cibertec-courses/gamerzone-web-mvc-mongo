@@ -31,8 +31,7 @@ namespace gamerzone_web_mvc_mongo.Models
 
     }
     public class Desarrollador
-    {
-    
+    {    
         [BsonElement("nombre")]
         public string Nombre { get; set; } = string.Empty;
 
