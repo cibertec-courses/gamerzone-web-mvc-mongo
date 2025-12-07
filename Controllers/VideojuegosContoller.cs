@@ -7,11 +7,11 @@ using Microsoft.VisualBasic;
 
 namespace gamerzone_web_mvc_mongo.Controllers
 {
-    public class VideojuegosContoller : Controller
+    public class VideojuegosController : Controller
     {
         private readonly VideojuegoService _videojuegoService;
 
-        public VideojuegosContoller(VideojuegoService videojuegoService)
+        public VideojuegosController(VideojuegoService videojuegoService)
         {
             _videojuegoService = videojuegoService;
         }
