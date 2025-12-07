@@ -16,9 +16,9 @@ namespace gamerzone_web_mvc_mongo.Services
             _videojuegos = database.GetCollection<Videojuego>(settings.Value.CollectionName);
         }
 
-        public async Task<List<Videojuego>> GetAsync() => await _videojuegos.Find(_ => true).ToListAsync();
+        public async Task<List<Videojuego>> GetAllAsync() => await _videojuegos.Find(_ => true).ToListAsync();
 
-        public async Task<Videojuego?> GetByAsync(string id) => await _videojuegos.Find(v => v.Id == id).FirstOrDefaultAsync();
+        public async Task<Videojuego?> GetByIdAsync(string id) => await _videojuegos.Find(v => v.Id == id).FirstOrDefaultAsync();
 
 
         public async Task CreateAsync(Videojuego videojuego) => await _videojuegos.InsertOneAsync(videojuego);
@@ -32,7 +32,7 @@ namespace gamerzone_web_mvc_mongo.Services
         public async Task<List<string>> GetGenerosAsync() =>
             await _videojuegos.Distinct<string>("genero", FilterDefinition<Videojuego>.Empty).ToListAsync();
 
-        public async Task<List<string>> GetPaisesAsyn() =>
+        public async Task<List<string>> GetPaisesAsync() =>
             await _videojuegos.Distinct<string>("desarrollador.pais", FilterDefinition<Videojuego>.Empty).ToListAsync();
 
     }
