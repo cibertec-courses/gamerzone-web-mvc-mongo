@@ -1,0 +1,92 @@
+@model gamerzone_web_mvc_mongo.Models.Videojuego
+
+@{
+    ViewData["Title"] = "Detalle del Videojuego";
+}
+
+<div class="container mt-4">
+    <h2 class="text-info"><i class="bi bi-eye"></i> Detalle del Videojuego</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">@Model.Titulo</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th width="200">Género:</th>
+                            <td><span class="badge bg-secondary fs-6">@Model.Genero</span></td>
+                        </tr>
+                        <tr>
+                            <th>Plataformas:</th>
+                            <td>
+                                @foreach (var plat in Model.Plataformas)
+                                {
+                                    <span class="badge bg-info text-dark fs-6 me-1">@plat</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Precio:</th>
+                            <td><span class="fs-5 text-success fw-bold">S/ @Model.Precio.ToString("N2")</span></td>
+                        </tr>
+                        <tr>
+                            <th>Stock:</th>
+                            <td>
+                                @if (Model.Stock == 0)
+                                {
+                                    <span class="badge bg-danger fs-6">Agotado</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success fs-6">@Model.Stock unidades</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Año de Lanzamiento:</th>
+                            <td>@Model.Lanzamiento</td>
+                        </tr>
+                        <tr>
+                            <th>Desarrollador:</th>
+                            <td>@Model.Desarrollador.Nombre</td>
+                        </tr>
+                        <tr>
+                            <th>País:</th>
+                            <td>@Model.Desarrollador.Pais</td>
+                        </tr>
+                        <tr>
+                            <th>Multijugador:</th>
+                            <td>
+                                @if (Model.Multijugador)
+                                {
+                                    <span class="badge bg-success fs-6">Sí</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary fs-6">No</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex gap-2">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

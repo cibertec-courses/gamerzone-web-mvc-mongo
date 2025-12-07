@@ -1,0 +1,106 @@
+@model List<gamerzone_web_mvc_mongo.Models.Videojuego>
+
+@{
+    ViewData["Title"] = "Catálogo de Videojuegos";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="text-primary"><i class="bi bi-controller"></i> Gamer Zone</h1>
+            <p class="text-muted">Total de videojuegos: <strong>@ViewBag.Total</strong></p>
+        </div>
+        <a asp-action="Create" class="btn btn-success btn-lg">
+            <i class="bi bi-plus-circle"></i> Nuevo Videojuego
+        </a>
+    </div>
+
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Mensaje"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <i class="bi bi-list"></i> Lista de Videojuegos
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Título</th>
+                        <th>Género</th>
+                        <th>Plataformas</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Desarrollador</th>
+                        <th>Multijugador</th>
+                        <th width="150">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><strong>@item.Titulo</strong></td>
+                            <td>
+                                <span class="badge bg-secondary">@item.Genero</span>
+                            </td>
+                            <td>
+                                @foreach (var plat in item.Plataformas)
+                                {
+                                    <span class="badge bg-info text-dark">@plat</span>
+                                }
+                            </td>
+                            <td>S/ @item.Precio.ToString("N2")</td>
+                            <td>
+                                @if (item.Stock == 0)
+                                {
+                                    <span class="badge bg-danger">Agotado</span>
+                                }
+                                else if (item.Stock < 10)
+                                {
+                                    <span class="badge bg-warning text-dark">@item.Stock</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">@item.Stock</span>
+                                }
+                            </td>
+                            <td>
+                                @item.Desarrollador.Nombre
+                                <small class="text-muted">(@item.Desarrollador.Pais)</small>
+                            </td>
+                            <td>
+                                @if (item.Multijugador)
+                                {
+                                    <span class="badge bg-success">Sí</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">No</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info" title="Ver">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

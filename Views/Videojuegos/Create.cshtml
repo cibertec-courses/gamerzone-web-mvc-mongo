@@ -1,0 +1,99 @@
+@model gamerzone_web_mvc_mongo.Models.Videojuego
+
+@{
+    ViewData["Title"] = "Nuevo Videojuego";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary"><i class="bi bi-plus-circle"></i> Nuevo Videojuego</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label asp-for="Titulo" class="form-label">Título</label>
+                                <input asp-for="Titulo" class="form-control" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="Genero" class="form-label">Género</label>
+                                <input asp-for="Genero" class="form-control" list="generosList" required />
+                                <datalist id="generosList">
+                                    @if (ViewBag.Generos != null)
+                                    {
+                                        @foreach (var g in ViewBag.Generos)
+                                        {
+                                            <option value="@g"></option>
+                                        }
+                                    }
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Plataformas (separadas por coma)</label>
+                            <input type="text" name="plataformasTexto" class="form-control" 
+                                   placeholder="PS4, PS5, Xbox, PC, Switch" required />
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label asp-for="Precio" class="form-label">Precio (S/)</label>
+                                <input asp-for="Precio" type="number" step="0.01" class="form-control" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="Stock" class="form-label">Stock</label>
+                                <input asp-for="Stock" type="number" class="form-control" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="Lanzamiento" class="form-label">Año Lanzamiento</label>
+                                <input asp-for="Lanzamiento" type="number" min="1980" max="2025" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Desarrollador.Nombre" class="form-label">Desarrollador</label>
+                                <input asp-for="Desarrollador.Nombre" class="form-control" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Desarrollador.Pais" class="form-label">País</label>
+                                <input asp-for="Desarrollador.Pais" class="form-control" list="paisesList" required />
+                                <datalist id="paisesList">
+                                    @if (ViewBag.Paises != null)
+                                    {
+                                        @foreach (var p in ViewBag.Paises)
+                                        {
+                                            <option value="@p"></option>
+                                        }
+                                    }
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input asp-for="Multijugador" class="form-check-input" type="checkbox" />
+                                <label asp-for="Multijugador" class="form-check-label">
+                                    ¿Tiene modo Multijugador?
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Guardar
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

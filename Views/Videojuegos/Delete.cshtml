@@ -1,0 +1,44 @@
+@model gamerzone_web_mvc_mongo.Models.Videojuego
+
+@{
+    ViewData["Title"] = "Eliminar Videojuego";
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger"><i class="bi bi-trash"></i> Eliminar Videojuego</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">¿Está seguro de eliminar este videojuego?</h5>
+                </div>
+                <div class="card-body">
+                    <h4>@Model.Titulo</h4>
+                    <p class="mb-1"><strong>Género:</strong> @Model.Genero</p>
+                    <p class="mb-1"><strong>Precio:</strong> S/ @Model.Precio.ToString("N2")</p>
+                    <p class="mb-1"><strong>Desarrollador:</strong> @Model.Desarrollador.Nombre (@Model.Desarrollador.Pais)</p>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Esta acción no se puede deshacer.
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Sí, Eliminar
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
